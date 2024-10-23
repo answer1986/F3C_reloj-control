@@ -1,0 +1,17 @@
+
+/** home **/
+
+.dashboard-background {
+    background-image: url('../img/oficina.jpeg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  
+  
+  
