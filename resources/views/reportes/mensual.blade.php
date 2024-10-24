@@ -116,7 +116,8 @@
 <body>
     <div class="container">
         <div class="navigation no-print">
-            <a href="{{ route('reportes') }}" class="btn btn-secondary">← Volver</a>
+        <a href="{{ route('reportes') }}" class="btn btn-secondary">← Volver</a>
+
         </div>
 
         <div class="header">
@@ -126,38 +127,48 @@
 
         <form action="{{ route('reportes.mensual') }}" method="GET" class="filter-form no-print">
             <div class="form-group">
-                <label>Fecha Inicio:</label>
-                <input type="date" name="fecha_inicio" value="{{ request('fecha_inicio') }}" required>
+                <label>Tipo de Negocio:</label>
+                <select name="tipo_negocio" required>
+                    <option value="ferreteria" {{ ($tipo ?? '') === 'ferreteria' ? 'selected' : '' }}>Ferretería</option>
+                    <option value="central" {{ ($tipo ?? '') === 'central' ? 'selected' : '' }}>Central/Bodega</option>
+                </select>
             </div>
+
+            <div class="form-group">
+                <label>Fecha Inicio:</label>
+                <input type="date" name="fecha_inicio" value="{{ $fechaInicio->format('Y-m-d') }}" required>
+            </div>
+
             <div class="form-group">
                 <label>Fecha Fin:</label>
-                <input type="date" name="fecha_fin" value="{{ request('fecha_fin') }}" required>
+                <input type="date" name="fecha_fin" value="{{ $fechaFin->format('Y-m-d') }}" required>
             </div>
+
             <div class="form-group">
                 <label>ID Empleado:</label>
                 <input type="text" name="employeeID" value="{{ request('employeeID') }}" placeholder="ID Empleado">
             </div>
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-        </form>
 
-        @if($empleado ?? '')
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        @if(isset($empleado) && $empleado)
             <div class="employee-info">
                 <table>
                     <tr>
                         <td width="20%"><strong>Cedula Nº:</strong></td>
-                        <td width="30%">{{ $empleado ?? ''['cedula'] }}</td>
+                        <td width="30%">{{ $empleado['cedula'] }}</td>
                         <td width="20%"><strong>Departamento:</strong></td>
-                        <td width="30%">{{ $empleado ?? ''['departamento'] }}</td>
+                        <td width="30%">{{ $empleado['departamento'] }}</td>
                     </tr>
                     <tr>
                         <td><strong>Nombre:</strong></td>
-                        <td>{{ $empleado ?? ''['nombre'] }}</td>
+                        <td>{{ $empleado['nombre'] }}</td>
                         <td><strong>AC Nº / ID:</strong></td>
-                        <td>{{ $empleado ?? ''['ac_id'] }}</td>
+                        <td>{{ $empleado['ac_id'] }}</td>
                     </tr>
                 </table>
             </div>
-
+        @endif
             <table class="calendar">
                 <thead>
                     <tr>
@@ -183,11 +194,10 @@
                 <p>_______________________</p>
                 <p>Firma Empleado</p>
             </div>
-        @else
-            <div class="alert alert-info">
-                No se encontraron registros para los criterios seleccionados.
-            </div>
-        @endif
+            </table>
+
+    
+      
     </div>
 </body>
 </html>

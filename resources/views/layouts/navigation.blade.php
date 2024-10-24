@@ -27,12 +27,12 @@
 
                         <!-- Dropdown Content for Reportes -->
                         <div x-show="openReports" @mouseenter="openReports = true" class="absolute mt-2 w-48 bg-white border rounded-md shadow-lg z-50">
-                            <x-nav-link :href="route('informe-formulario')" :active="request()->routeIs('informe-formulario')">
-                                {{ __('Formulario de Reporte') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('informe-mensual')" :active="request()->routeIs('informe-mensual')">
-                                {{ __('Reporte Mensual') }}
-                            </x-nav-link>
+                            <a href="{{ route('reportes.formulario') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('reportes.formulario') ? 'bg-gray-100' : '' }}">
+                                Formulario de Reporte
+                            </a>
+                            <a href="{{ route('reportes.mensual') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('reportes.mensual') ? 'bg-gray-100' : '' }}">
+                                Reporte Mensual
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -84,13 +84,14 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
+            <!-- En el menú responsive -->
             <div class="relative">
-                <x-responsive-nav-link :href="route('informe-formulario')" :active="request()->routeIs('informe-formulario')">
-                    {{ __('Formulario de Reporte') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('informe-mensual')" :active="request()->routeIs('informe-mensual')">
-                    {{ __('Reporte Mensual') }}
-                </x-responsive-nav-link>
+                <a href="{{ route('reportes.formulario') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 {{ request()->routeIs('reportes.formulario') ? 'border-indigo-400' : '' }}">
+                    Formulario de Reporte
+                </a>
+                <a href="{{ route('reportes.mensual') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 {{ request()->routeIs('reportes.mensual') ? 'border-indigo-400' : '' }}">
+                    Reporte Mensual
+                </a>
             </div>
         </div>
 
