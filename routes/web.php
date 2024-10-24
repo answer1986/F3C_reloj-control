@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReportesController;
+use App\Http\Controllers\InformeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +26,21 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/reportes', [ReportesController::class, 'index'])->name('reportes');
+Route::prefix('reportes')->group(function () {
+        // Vista principal de reportes
+        Route::get('/', function () {
+            return view('reportes.index');
+        })->name('reportes');
+
+        // Formulario de reportes
+        Route::get('/formulario', function () {
+            return view('reportes.formulario');
+        })->name('reportes.formulario');  // Nombre actualizado
+
+        // Informe mensual
+        Route::get('/mensual', [InformeController::class, 'generarInforme'])
+            ->name('reportes.mensual');    // Nombre actualizado
+    });
 });
 
 // Rutas de Login
@@ -47,5 +63,22 @@ Route::get('register', [RegisteredUserController::class, 'create'])
 
 Route::post('register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
+
+
+Route::get('/informe-formulario', function () {
+    return view('informes.formulario');
+})->name('informe-formulario');
+
+Route::get('/informe-mensual', [InformeController::class, 'generarInforme'])->name('informe-mensual');
+                
+Route::get('/run-node-server', function () {
+    try {
+        // Ejecutar el comando de Node.js
+        $output = shell_exec('node /ruta/al/server3.js');  // Asegúrate de que la ruta sea correcta
+        return response()->json(['status' => 'success', 'output' => $output]);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+    }
+})->middleware('auth');
 
 require __DIR__.'/auth.php';

@@ -1535,17 +1535,59 @@ select {
 
 /** home **/
 
-.dashboard-background {
-  background-image: url('../img/oficina.jpeg');
+body {
+  /* Imagen de fondo */
+  background-image: url('/img/oficina.jpeg');
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
+  background-repeat: no-repeat;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.95); /* Fondo blanco semi-transparente */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-logo img {
+  max-width: 150px;
+}
+
+.btn-custom-primary {
+  background-color: #007bff;
+  border-color: #007bff;
   color: white;
 }
 
+.btn-custom-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+  color: white;
+}
+
+.btn-custom-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+.btn-custom-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+  color: white;
+}
 
 
 

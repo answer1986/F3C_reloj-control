@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false, openReports: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -16,9 +16,25 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('reportes')" :active="request()->routeIs('reportes')">
-                        {{ __('Reportes') }}
-                    </x-nav-link>
+                    <!-- Dropdown for Reportes -->
+                    <div class="relative" @mouseleave="openReports = false">
+                        <button style="margin-top:25px" @mouseenter="openReports = true" class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none">
+                            <span>{{ __('Reportes') }}</span>
+                            <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown Content for Reportes -->
+                        <div x-show="openReports" @mouseenter="openReports = true" class="absolute mt-2 w-48 bg-white border rounded-md shadow-lg z-50">
+                            <x-nav-link :href="route('informe-formulario')" :active="request()->routeIs('informe-formulario')">
+                                {{ __('Formulario de Reporte') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('informe-mensual')" :active="request()->routeIs('informe-mensual')">
+                                {{ __('Reporte Mensual') }}
+                            </x-nav-link>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -34,6 +50,11 @@
 
                     <!-- Dropdown Content -->
                     <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50">
+                        <!-- Ejecutar Node Server -->
+                        <button id="runNodeServer" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Ejecutar Node Server
+                        </button>
+                        
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -63,9 +84,14 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('reportes')" :active="request()->routeIs('reportes')">
-                {{ __('Reportes') }}
-            </x-responsive-nav-link>
+            <div class="relative">
+                <x-responsive-nav-link :href="route('informe-formulario')" :active="request()->routeIs('informe-formulario')">
+                    {{ __('Formulario de Reporte') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('informe-mensual')" :active="request()->routeIs('informe-mensual')">
+                    {{ __('Reporte Mensual') }}
+                </x-responsive-nav-link>
+            </div>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -87,3 +113,21 @@
         </div>
     </div>
 </nav>
+
+<!-- Script para ejecutar el comando de Node.js -->
+<script>
+    document.getElementById('runNodeServer').addEventListener('click', function () {
+        fetch('/run-node-server')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Comando ejecutado correctamente: ' + data.output);
+                } else {
+                    alert('Error al ejecutar el comando: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error en la solicitud: ' + error);
+            });
+    });
+</script>

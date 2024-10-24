@@ -7,3 +7,4 @@
     <p>Contenido de la sección de reportes.</p>
 </div>
 @endsection
+    

@@ -28,9 +28,7 @@
             <main>
                 {{ $slot ?? '' }}
             </main>
-             <!-- Incluir Alpine.js -->
             <script src="//unpkg.com/alpinejs" defer></script>
-            <!-- Incluir Bootstrap JS si lo necesitas -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         </div>
     </body>

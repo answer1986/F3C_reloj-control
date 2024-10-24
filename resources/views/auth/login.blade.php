@@ -1,8 +1,24 @@
+<style>
+        body {
+            /* Imagen de fondo */
+            background-image: url('{{ asset('/img/oficina.jpeg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+</style>
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
             </a>
+            <img src="{{ asset('/img/Grouplogof3c.png') }}" alt="Logo" class="logo">
+
         </x-slot>
 
         <!-- Session Status -->
